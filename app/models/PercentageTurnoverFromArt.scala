@@ -16,18 +16,20 @@
 
 package models
 
-import play.api.libs.json._
 import viewmodels.RadioOption
 
 sealed trait PercentageTurnoverFromArt
 
 object PercentageTurnoverFromArt extends Enumerable.Implicits {
 
-  case object Zerototwenty extends WithName("zeroToTwenty") with PercentageTurnoverFromArt
-  case object Twentyonetoforty extends WithName("twentyOneToForty") with PercentageTurnoverFromArt
+  case object ZeroToTwenty extends WithName("zeroToTwenty") with PercentageTurnoverFromArt
+  case object TwentyOnetoForty extends WithName("twentyOneToForty") with PercentageTurnoverFromArt
+  case object FortyOneToSixty extends WithName("fortyOneToSixty") with PercentageTurnoverFromArt
+  case object SixtyOneToEighty extends WithName("sixtyOneToEighty") with PercentageTurnoverFromArt
+  case object EightyOneToOneHundred extends WithName("eightyOneToOneHundred") with PercentageTurnoverFromArt
 
   val values: Seq[PercentageTurnoverFromArt] = Seq(
-    Zerototwenty, Twentyonetoforty
+    ZeroToTwenty, TwentyOnetoForty, FortyOneToSixty, SixtyOneToEighty, EightyOneToOneHundred
   )
 
   val options: Seq[RadioOption] = values.map {
