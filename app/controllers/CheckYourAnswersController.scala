@@ -39,7 +39,12 @@ class CheckYourAnswersController @Inject()(
 
       val checkYourAnswersHelper = new CheckYourAnswersHelper(request.userAnswers)
 
-      val sections = Seq(AnswerSection(None, Seq()))
+      val sections = Seq(AnswerSection(None, Seq(
+        checkYourAnswersHelper.artSoldOverThreshold,
+        checkYourAnswersHelper.dateSoldOverThreshold,
+        checkYourAnswersHelper.identifyLinkedTransactions,
+        checkYourAnswersHelper.percentageTurnoverFromArt
+      ).flatten))
 
       Ok(view(sections))
   }
