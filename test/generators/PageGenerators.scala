@@ -21,6 +21,18 @@ import pages._
 
 trait PageGenerators {
 
+  implicit lazy val arbitraryPercentageTurnoverFromArtPage: Arbitrary[PercentageTurnoverFromArtPage.type] =
+    Arbitrary(PercentageTurnoverFromArtPage)
+
+  implicit lazy val arbitraryIdentifyLinkedTransactionsPage: Arbitrary[IdentifyLinkedTransactionsPage.type] =
+    Arbitrary(IdentifyLinkedTransactionsPage)
+
+  implicit lazy val arbitraryDateSoldOverThresholdPage: Arbitrary[DateSoldOverThresholdPage.type] =
+    Arbitrary(DateSoldOverThresholdPage)
+
+  implicit lazy val arbitraryArtSoldOverThresholdPage: Arbitrary[ArtSoldOverThresholdPage.type] =
+    Arbitrary(ArtSoldOverThresholdPage)
+
   implicit lazy val arbitraryTypeOfParticipantPage: Arbitrary[TypeOfParticipantPage.type] =
     Arbitrary(TypeOfParticipantPage)
 }

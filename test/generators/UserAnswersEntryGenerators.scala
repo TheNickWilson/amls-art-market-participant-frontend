@@ -24,6 +24,38 @@ import play.api.libs.json.{JsValue, Json}
 
 trait UserAnswersEntryGenerators extends PageGenerators with ModelGenerators {
 
+  implicit lazy val arbitraryPercentageTurnoverFromArtUserAnswersEntry: Arbitrary[(PercentageTurnoverFromArtPage.type, JsValue)] =
+    Arbitrary {
+      for {
+        page  <- arbitrary[PercentageTurnoverFromArtPage.type]
+        value <- arbitrary[PercentageTurnoverFromArt].map(Json.toJson(_))
+      } yield (page, value)
+    }
+
+  implicit lazy val arbitraryIdentifyLinkedTransactionsUserAnswersEntry: Arbitrary[(IdentifyLinkedTransactionsPage.type, JsValue)] =
+    Arbitrary {
+      for {
+        page  <- arbitrary[IdentifyLinkedTransactionsPage.type]
+        value <- arbitrary[Boolean].map(Json.toJson(_))
+      } yield (page, value)
+    }
+
+  implicit lazy val arbitraryDateSoldOverThresholdUserAnswersEntry: Arbitrary[(DateSoldOverThresholdPage.type, JsValue)] =
+    Arbitrary {
+      for {
+        page  <- arbitrary[DateSoldOverThresholdPage.type]
+        value <- arbitrary[Int].map(Json.toJson(_))
+      } yield (page, value)
+    }
+
+  implicit lazy val arbitraryArtSoldOverThresholdUserAnswersEntry: Arbitrary[(ArtSoldOverThresholdPage.type, JsValue)] =
+    Arbitrary {
+      for {
+        page  <- arbitrary[ArtSoldOverThresholdPage.type]
+        value <- arbitrary[Boolean].map(Json.toJson(_))
+      } yield (page, value)
+    }
+
   implicit lazy val arbitraryTypeOfParticipantUserAnswersEntry: Arbitrary[(TypeOfParticipantPage.type, JsValue)] =
     Arbitrary {
       for {

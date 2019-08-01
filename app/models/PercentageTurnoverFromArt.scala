@@ -16,24 +16,25 @@
 
 package models
 
+import play.api.libs.json._
 import viewmodels.RadioOption
 
-sealed trait TypeOfParticipant
+sealed trait PercentageTurnoverFromArt
 
-object TypeOfParticipant extends Enumerable.Implicits {
+object PercentageTurnoverFromArt extends Enumerable.Implicits {
 
-  case object ArtGalleryOwner extends WithName("artGalleryOwner") with TypeOfParticipant
-  case object ArtDealer extends WithName("artDealer") with TypeOfParticipant
+  case object Zerototwenty extends WithName("zeroToTwenty") with PercentageTurnoverFromArt
+  case object Twentyonetoforty extends WithName("twentyOneToForty") with PercentageTurnoverFromArt
 
-  val values: Set[TypeOfParticipant] = Set(
-    ArtGalleryOwner, ArtDealer
+  val values: Seq[PercentageTurnoverFromArt] = Seq(
+    Zerototwenty, Twentyonetoforty
   )
 
-  val options: Set[RadioOption] = values.map {
+  val options: Seq[RadioOption] = values.map {
     value =>
-      RadioOption("typeOfParticipant", value.toString)
+      RadioOption("percentageTurnoverFromArt", value.toString)
   }
 
-  implicit val enumerable: Enumerable[TypeOfParticipant] =
-    Enumerable(values.toSeq.map(v => v.toString -> v): _*)
+  implicit val enumerable: Enumerable[PercentageTurnoverFromArt] =
+    Enumerable(values.map(v => v.toString -> v): _*)
 }

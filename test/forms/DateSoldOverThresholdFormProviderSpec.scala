@@ -14,21 +14,26 @@
  * limitations under the License.
  */
 
-package generators
+package forms
 
-import models._
-import org.scalacheck.Arbitrary.arbitrary
-import org.scalacheck.{Arbitrary, Gen}
+import java.time.{LocalDate, ZoneOffset}
 
-trait ModelGenerators {
+import forms.behaviours.DateBehaviours
+import play.api.data.FormError
 
-  implicit lazy val arbitraryPercentageTurnoverFromArt: Arbitrary[PercentageTurnoverFromArt] =
-    Arbitrary {
-      Gen.oneOf(PercentageTurnoverFromArt.values.toSeq)
-    }
+class DateSoldOverThresholdFormProviderSpec extends DateBehaviours {
 
-  implicit lazy val arbitraryTypeOfParticipant: Arbitrary[TypeOfParticipant] =
-    Arbitrary {
-      Gen.oneOf(TypeOfParticipant.values.toSeq)
-    }
+  val form = new DateSoldOverThresholdFormProvider()()
+
+  ".value" should {
+
+    val validData = datesBetween(
+      min = LocalDate.of(2000, 1, 1),
+      max = LocalDate.now(ZoneOffset.UTC)
+    )
+
+    behave like dateField(form, "value", validData)
+
+    behave like mandatoryDateField(form, "value", "dateSoldOverThreshold.error.required.all")
+  }
 }

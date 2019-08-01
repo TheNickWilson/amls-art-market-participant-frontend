@@ -49,3 +49,28 @@ typeOfParticipant.artGalleryOwner = Art gallery owner
 typeOfParticipant.artDealer = Art dealer
 typeOfParticipant.checkYourAnswersLabel = What type of art market participant are you?
 typeOfParticipant.error.required = Select typeOfParticipant
+
+artSoldOverThreshold.title = artSoldOverThreshold
+artSoldOverThreshold.heading = artSoldOverThreshold
+artSoldOverThreshold.checkYourAnswersLabel = artSoldOverThreshold
+artSoldOverThreshold.error.required = Select yes if artSoldOverThreshold
+
+dateSoldOverThreshold.title = DateSoldOverThreshold
+dateSoldOverThreshold.heading = DateSoldOverThreshold
+dateSoldOverThreshold.checkYourAnswersLabel = DateSoldOverThreshold
+dateSoldOverThreshold.error.required.all = Enter the dateSoldOverThreshold
+dateSoldOverThreshold.error.required.two = The dateSoldOverThreshold must include {0} and {1}
+dateSoldOverThreshold.error.required = The dateSoldOverThreshold must include {0}
+dateSoldOverThreshold.error.invalid = Enter a real DateSoldOverThreshold
+
+identifyLinkedTransactions.title = identifyLinkedTransactions
+identifyLinkedTransactions.heading = identifyLinkedTransactions
+identifyLinkedTransactions.checkYourAnswersLabel = identifyLinkedTransactions
+identifyLinkedTransactions.error.required = Select yes if identifyLinkedTransactions
+
+percentageTurnoverFromArt.title = How much of your turnover do you expect to come from sales art for £10,000 or more?
+percentageTurnoverFromArt.heading = How much of your turnover do you expect to come from sales art for £10,000 or more?
+percentageTurnoverFromArt.zeroToTwenty = 0% to 20%
+percentageTurnoverFromArt.twentyOneToForty = 21% to 40%
+percentageTurnoverFromArt.checkYourAnswersLabel = How much of your turnover do you expect to come from sales art for £10,000 or more?
+percentageTurnoverFromArt.error.required = Select percentageTurnoverFromArt

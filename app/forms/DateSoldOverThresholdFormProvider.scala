@@ -14,21 +14,23 @@
  * limitations under the License.
  */
 
-package generators
+package forms
 
-import models._
-import org.scalacheck.Arbitrary.arbitrary
-import org.scalacheck.{Arbitrary, Gen}
+import java.time.LocalDate
 
-trait ModelGenerators {
+import forms.mappings.Mappings
+import javax.inject.Inject
+import play.api.data.Form
 
-  implicit lazy val arbitraryPercentageTurnoverFromArt: Arbitrary[PercentageTurnoverFromArt] =
-    Arbitrary {
-      Gen.oneOf(PercentageTurnoverFromArt.values.toSeq)
-    }
+class DateSoldOverThresholdFormProvider @Inject() extends Mappings {
 
-  implicit lazy val arbitraryTypeOfParticipant: Arbitrary[TypeOfParticipant] =
-    Arbitrary {
-      Gen.oneOf(TypeOfParticipant.values.toSeq)
-    }
+  def apply(): Form[LocalDate] =
+    Form(
+      "value" -> localDate(
+        invalidKey     = "dateSoldOverThreshold.error.invalid",
+        allRequiredKey = "dateSoldOverThreshold.error.required.all",
+        twoRequiredKey = "dateSoldOverThreshold.error.required.two",
+        requiredKey    = "dateSoldOverThreshold.error.required"
+      )
+    )
 }

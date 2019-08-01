@@ -14,21 +14,25 @@
  * limitations under the License.
  */
 
-package generators
+package pages
 
-import models._
-import org.scalacheck.Arbitrary.arbitrary
-import org.scalacheck.{Arbitrary, Gen}
+import java.time.LocalDate
 
-trait ModelGenerators {
+import org.scalacheck.Arbitrary
+import pages.behaviours.PageBehaviours
 
-  implicit lazy val arbitraryPercentageTurnoverFromArt: Arbitrary[PercentageTurnoverFromArt] =
-    Arbitrary {
-      Gen.oneOf(PercentageTurnoverFromArt.values.toSeq)
+class DateSoldOverThresholdPageSpec extends PageBehaviours {
+
+  "DateSoldOverThresholdPage" must {
+
+    implicit lazy val arbitraryLocalDate: Arbitrary[LocalDate] = Arbitrary {
+      datesBetween(LocalDate.of(1900, 1, 1), LocalDate.of(2100, 1, 1))
     }
 
-  implicit lazy val arbitraryTypeOfParticipant: Arbitrary[TypeOfParticipant] =
-    Arbitrary {
-      Gen.oneOf(TypeOfParticipant.values.toSeq)
-    }
+    beRetrievable[LocalDate](DateSoldOverThresholdPage)
+
+    beSettable[LocalDate](DateSoldOverThresholdPage)
+
+    beRemovable[LocalDate](DateSoldOverThresholdPage)
+  }
 }

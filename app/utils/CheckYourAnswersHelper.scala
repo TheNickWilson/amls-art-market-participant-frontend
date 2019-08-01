@@ -28,6 +28,42 @@ import CheckYourAnswersHelper._
 
 class CheckYourAnswersHelper(userAnswers: UserAnswers)(implicit messages: Messages) {
 
+  def percentageTurnoverFromArt: Option[AnswerRow] = userAnswers.get(PercentageTurnoverFromArtPage) map {
+    x =>
+      AnswerRow(
+        HtmlFormat.escape(messages("percentageTurnoverFromArt.checkYourAnswersLabel")),
+        HtmlFormat.escape(messages(s"percentageTurnoverFromArt.$x")),
+        routes.PercentageTurnoverFromArtController.onPageLoad(CheckMode).url
+      )
+  }
+
+  def identifyLinkedTransactions: Option[AnswerRow] = userAnswers.get(IdentifyLinkedTransactionsPage) map {
+    x =>
+      AnswerRow(
+        HtmlFormat.escape(messages("identifyLinkedTransactions.checkYourAnswersLabel")),
+        yesOrNo(x),
+        routes.IdentifyLinkedTransactionsController.onPageLoad(CheckMode).url
+      )
+  }
+
+  def dateSoldOverThreshold: Option[AnswerRow] = userAnswers.get(DateSoldOverThresholdPage) map {
+    x =>
+      AnswerRow(
+        HtmlFormat.escape(messages("dateSoldOverThreshold.checkYourAnswersLabel")),
+        HtmlFormat.escape(x.format(dateFormatter)),
+        routes.DateSoldOverThresholdController.onPageLoad(CheckMode).url
+      )
+  }
+
+  def artSoldOverThreshold: Option[AnswerRow] = userAnswers.get(ArtSoldOverThresholdPage) map {
+    x =>
+      AnswerRow(
+        HtmlFormat.escape(messages("artSoldOverThreshold.checkYourAnswersLabel")),
+        yesOrNo(x),
+        routes.ArtSoldOverThresholdController.onPageLoad(CheckMode).url
+      )
+  }
+
   def typeOfParticipant: Option[AnswerRow] = userAnswers.get(TypeOfParticipantPage) map {
     x =>
       AnswerRow(

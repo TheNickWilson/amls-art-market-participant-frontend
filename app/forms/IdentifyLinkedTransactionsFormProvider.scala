@@ -14,21 +14,17 @@
  * limitations under the License.
  */
 
-package generators
+package forms
 
-import models._
-import org.scalacheck.Arbitrary.arbitrary
-import org.scalacheck.{Arbitrary, Gen}
+import javax.inject.Inject
 
-trait ModelGenerators {
+import forms.mappings.Mappings
+import play.api.data.Form
 
-  implicit lazy val arbitraryPercentageTurnoverFromArt: Arbitrary[PercentageTurnoverFromArt] =
-    Arbitrary {
-      Gen.oneOf(PercentageTurnoverFromArt.values.toSeq)
-    }
+class IdentifyLinkedTransactionsFormProvider @Inject() extends Mappings {
 
-  implicit lazy val arbitraryTypeOfParticipant: Arbitrary[TypeOfParticipant] =
-    Arbitrary {
-      Gen.oneOf(TypeOfParticipant.values.toSeq)
-    }
+  def apply(): Form[Boolean] =
+    Form(
+      "value" -> boolean("identifyLinkedTransactions.error.required")
+    )
 }

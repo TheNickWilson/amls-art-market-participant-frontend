@@ -14,21 +14,19 @@
  * limitations under the License.
  */
 
-package generators
+package pages
 
-import models._
-import org.scalacheck.Arbitrary.arbitrary
-import org.scalacheck.{Arbitrary, Gen}
+import models.PercentageTurnoverFromArt
+import pages.behaviours.PageBehaviours
 
-trait ModelGenerators {
+class PercentageTurnoverFromArtSpec extends PageBehaviours {
 
-  implicit lazy val arbitraryPercentageTurnoverFromArt: Arbitrary[PercentageTurnoverFromArt] =
-    Arbitrary {
-      Gen.oneOf(PercentageTurnoverFromArt.values.toSeq)
-    }
+  "PercentageTurnoverFromArtPage" must {
 
-  implicit lazy val arbitraryTypeOfParticipant: Arbitrary[TypeOfParticipant] =
-    Arbitrary {
-      Gen.oneOf(TypeOfParticipant.values.toSeq)
-    }
+    beRetrievable[PercentageTurnoverFromArt](PercentageTurnoverFromArtPage)
+
+    beSettable[PercentageTurnoverFromArt](PercentageTurnoverFromArtPage)
+
+    beRemovable[PercentageTurnoverFromArt](PercentageTurnoverFromArtPage)
+  }
 }

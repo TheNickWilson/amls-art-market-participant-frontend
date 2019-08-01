@@ -14,26 +14,32 @@
  * limitations under the License.
  */
 
-package models
+package forms
 
-import viewmodels.RadioOption
+import forms.behaviours.BooleanFieldBehaviours
+import play.api.data.FormError
 
-sealed trait TypeOfParticipant
+class ArtSoldOverThresholdFormProviderSpec extends BooleanFieldBehaviours {
 
-object TypeOfParticipant extends Enumerable.Implicits {
+  val requiredKey = "artSoldOverThreshold.error.required"
+  val invalidKey = "error.boolean"
 
-  case object ArtGalleryOwner extends WithName("artGalleryOwner") with TypeOfParticipant
-  case object ArtDealer extends WithName("artDealer") with TypeOfParticipant
+  val form = new ArtSoldOverThresholdFormProvider()()
 
-  val values: Set[TypeOfParticipant] = Set(
-    ArtGalleryOwner, ArtDealer
-  )
+  ".value" must {
 
-  val options: Set[RadioOption] = values.map {
-    value =>
-      RadioOption("typeOfParticipant", value.toString)
+    val fieldName = "value"
+
+    behave like booleanField(
+      form,
+      fieldName,
+      invalidError = FormError(fieldName, invalidKey)
+    )
+
+    behave like mandatoryField(
+      form,
+      fieldName,
+      requiredError = FormError(fieldName, requiredKey)
+    )
   }
-
-  implicit val enumerable: Enumerable[TypeOfParticipant] =
-    Enumerable(values.toSeq.map(v => v.toString -> v): _*)
 }

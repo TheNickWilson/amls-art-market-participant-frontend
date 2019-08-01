@@ -16,3 +16,23 @@ GET        /typeOfParticipant                        controllers.TypeOfParticipa
 POST       /typeOfParticipant                        controllers.TypeOfParticipantController.onSubmit(mode: Mode = NormalMode)
 GET        /changeTypeOfParticipant                  controllers.TypeOfParticipantController.onPageLoad(mode: Mode = CheckMode)
 POST       /changeTypeOfParticipant                  controllers.TypeOfParticipantController.onSubmit(mode: Mode = CheckMode)
+
+GET        /artSoldOverThreshold                        controllers.ArtSoldOverThresholdController.onPageLoad(mode: Mode = NormalMode)
+POST       /artSoldOverThreshold                        controllers.ArtSoldOverThresholdController.onSubmit(mode: Mode = NormalMode)
+GET        /changeArtSoldOverThreshold                  controllers.ArtSoldOverThresholdController.onPageLoad(mode: Mode = CheckMode)
+POST       /changeArtSoldOverThreshold                  controllers.ArtSoldOverThresholdController.onSubmit(mode: Mode = CheckMode)
+
+GET        /dateSoldOverThreshold                  controllers.DateSoldOverThresholdController.onPageLoad(mode: Mode = NormalMode)
+POST       /dateSoldOverThreshold                  controllers.DateSoldOverThresholdController.onSubmit(mode: Mode = NormalMode)
+GET        /changeDateSoldOverThreshold                        controllers.DateSoldOverThresholdController.onPageLoad(mode: Mode = CheckMode)
+POST       /changeDateSoldOverThreshold                        controllers.DateSoldOverThresholdController.onSubmit(mode: Mode = CheckMode)
+
+GET        /identifyLinkedTransactions                        controllers.IdentifyLinkedTransactionsController.onPageLoad(mode: Mode = NormalMode)
+POST       /identifyLinkedTransactions                        controllers.IdentifyLinkedTransactionsController.onSubmit(mode: Mode = NormalMode)
+GET        /changeIdentifyLinkedTransactions                  controllers.IdentifyLinkedTransactionsController.onPageLoad(mode: Mode = CheckMode)
+POST       /changeIdentifyLinkedTransactions                  controllers.IdentifyLinkedTransactionsController.onSubmit(mode: Mode = CheckMode)
+
+GET        /percentageTurnoverFromArt                        controllers.PercentageTurnoverFromArtController.onPageLoad(mode: Mode = NormalMode)
+POST       /percentageTurnoverFromArt                        controllers.PercentageTurnoverFromArtController.onSubmit(mode: Mode = NormalMode)
+GET        /changePercentageTurnoverFromArt                  controllers.PercentageTurnoverFromArtController.onPageLoad(mode: Mode = CheckMode)
+POST       /changePercentageTurnoverFromArt                  controllers.PercentageTurnoverFromArtController.onSubmit(mode: Mode = CheckMode)
