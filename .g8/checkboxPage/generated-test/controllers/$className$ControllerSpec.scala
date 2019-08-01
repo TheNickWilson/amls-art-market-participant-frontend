@@ -136,7 +136,7 @@ class $className$ControllerSpec extends SpecBase with MockitoSugar {
 
       val request =
         FakeRequest(POST, $className;format="decap"$Route)
-          .withFormUrlEncodedBody(("value", $className$.values.head.toString))
+          .withFormUrlEncodedBody(("value[0]", $className$.values.head.toString))
 
       val result = route(application, request).value
 
