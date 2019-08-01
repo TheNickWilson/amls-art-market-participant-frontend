@@ -11,3 +11,8 @@ GET        /this-service-has-been-reset                 controllers.SessionExpir
 GET        /check-your-answers                          controllers.CheckYourAnswersController.onPageLoad
 
 GET        /unauthorised                                controllers.UnauthorisedController.onPageLoad
+
+GET        /typeOfParticipant                        controllers.TypeOfParticipantController.onPageLoad(mode: Mode = NormalMode)
+POST       /typeOfParticipant                        controllers.TypeOfParticipantController.onSubmit(mode: Mode = NormalMode)
+GET        /changeTypeOfParticipant                  controllers.TypeOfParticipantController.onPageLoad(mode: Mode = CheckMode)
+POST       /changeTypeOfParticipant                  controllers.TypeOfParticipantController.onSubmit(mode: Mode = CheckMode)

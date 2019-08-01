@@ -14,21 +14,19 @@
  * limitations under the License.
  */
 
-package generators
+package forms
 
-import models._
-import org.scalacheck.Arbitrary
-import org.scalacheck.Arbitrary.arbitrary
-import pages._
-import play.api.libs.json.{JsValue, Json}
+import javax.inject.Inject
 
-trait UserAnswersEntryGenerators extends PageGenerators with ModelGenerators {
+import forms.mappings.Mappings
+import play.api.data.Form
+import play.api.data.Forms.set
+import models.TypeOfParticipant
 
-  implicit lazy val arbitraryTypeOfParticipantUserAnswersEntry: Arbitrary[(TypeOfParticipantPage.type, JsValue)] =
-    Arbitrary {
-      for {
-        page  <- arbitrary[TypeOfParticipantPage.type]
-        value <- arbitrary[TypeOfParticipant].map(Json.toJson(_))
-      } yield (page, value)
-    }
+class TypeOfParticipantFormProvider @Inject() extends Mappings {
+
+  def apply(): Form[Set[TypeOfParticipant]] =
+    Form(
+      "value" -> set(enumerable[TypeOfParticipant]("typeOfParticipant.error.required")).verifying(nonEmptySet("typeOfParticipant.error.required"))
+    )
 }

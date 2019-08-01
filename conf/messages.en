@@ -42,3 +42,10 @@ site.textarea.char_limit = (Limit is {0} characters)
 
 unauthorised.title = You can’t access this service with this account
 unauthorised.heading = You can’t access this service with this account
+
+typeOfParticipant.title = What type of art market participant are you?
+typeOfParticipant.heading = What type of art market participant are you?
+typeOfParticipant.artGalleryOwner = Art gallery owner
+typeOfParticipant.artDealer = Art dealer
+typeOfParticipant.checkYourAnswersLabel = What type of art market participant are you?
+typeOfParticipant.error.required = Select typeOfParticipant
