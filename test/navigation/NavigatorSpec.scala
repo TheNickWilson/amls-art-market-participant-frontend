@@ -16,12 +16,15 @@
 
 package navigation
 
+import java.time.LocalDate
+
 import base.SpecBase
 import controllers.routes
 import pages._
 import models._
+import org.scalatest.TryValues
 
-class NavigatorSpec extends SpecBase {
+class NavigatorSpec extends SpecBase with TryValues {
 
   val navigator = new Navigator
 
@@ -34,6 +37,46 @@ class NavigatorSpec extends SpecBase {
         case object UnknownPage extends Page
         navigator.nextPage(UnknownPage, NormalMode, UserAnswers("id")) mustBe routes.IndexController.onPageLoad()
       }
+
+      "go from Type of Participant to Art Sold Over Threshold" in {
+
+        val answers = UserAnswers("id")
+
+        navigator.nextPage(TypeOfParticipantPage, NormalMode, answers)
+          .mustBe(routes.ArtSoldOverThresholdController.onPageLoad(NormalMode))
+      }
+
+      "go from Art Sold Over Threshold to Date Sold Over Threshold when the user answers yes" in {
+
+        val answers = UserAnswers("id").set(ArtSoldOverThresholdPage, true).success.value
+
+        navigator.nextPage(ArtSoldOverThresholdPage, NormalMode, answers)
+          .mustBe(routes.DateSoldOverThresholdController.onPageLoad(NormalMode))
+      }
+
+      "go from Art Sold Over Threshold to Identify Linked Transactions when the user answers no" in {
+
+        val answers = UserAnswers("id").set(ArtSoldOverThresholdPage, false).success.value
+
+        navigator.nextPage(ArtSoldOverThresholdPage, NormalMode, answers)
+          .mustBe(routes.IdentifyLinkedTransactionsController.onPageLoad(NormalMode))
+      }
+
+      "go from Identify Linked Transactions to Percentage Turnover From Art" in {
+
+        val answers = UserAnswers("id")
+
+        navigator.nextPage(IdentifyLinkedTransactionsPage, NormalMode, answers)
+          .mustBe(routes.PercentageTurnoverFromArtController.onPageLoad(NormalMode))
+      }
+
+      "go from Percentage Turnover From Art to Check Your Answers" in {
+
+        val answers = UserAnswers("id")
+
+        navigator.nextPage(PercentageTurnoverFromArtPage, NormalMode, answers)
+          .mustBe(routes.CheckYourAnswersController.onPageLoad())
+      }
     }
 
     "in Check mode" must {
@@ -42,6 +85,35 @@ class NavigatorSpec extends SpecBase {
 
         case object UnknownPage extends Page
         navigator.nextPage(UnknownPage, CheckMode, UserAnswers("id")) mustBe routes.CheckYourAnswersController.onPageLoad()
+      }
+
+      "go from Art Sold Over Threshold to Date Sold Over Threshold when the user answers Yes and Date Sold Over Threshold has not been answered" in {
+
+        val answers =
+          UserAnswers("id")
+            .set(ArtSoldOverThresholdPage, true).success.value
+
+        navigator.nextPage(ArtSoldOverThresholdPage, CheckMode, answers)
+          .mustBe(routes.DateSoldOverThresholdController.onPageLoad(CheckMode))
+      }
+
+      "go from Art Sold Over Threshold to Check Your Answers when the user answers Yes and Date Sold Over Threshold has already been answered" in {
+
+        val answers =
+          UserAnswers("id")
+            .set(DateSoldOverThresholdPage, LocalDate.now()).success.value
+            .set(ArtSoldOverThresholdPage, true).success.value
+
+        navigator.nextPage(ArtSoldOverThresholdPage, CheckMode, answers)
+          .mustBe(routes.CheckYourAnswersController.onPageLoad())
+      }
+
+      "go from Art Sold Over Threshold to Check Your Answers when the user answers No" in {
+
+        val answers = UserAnswers("id").set(ArtSoldOverThresholdPage, false).success.value
+
+        navigator.nextPage(ArtSoldOverThresholdPage, CheckMode, answers)
+          .mustBe(routes.CheckYourAnswersController.onPageLoad())
       }
     }
   }

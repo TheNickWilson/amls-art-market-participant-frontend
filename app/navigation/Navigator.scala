@@ -27,12 +27,30 @@ import models._
 class Navigator @Inject()() {
 
   private val normalRoutes: Page => UserAnswers => Call = {
-    case _ => _ => routes.IndexController.onPageLoad()
+    case TypeOfParticipantPage          => _ => routes.ArtSoldOverThresholdController.onPageLoad(NormalMode)
+    case ArtSoldOverThresholdPage       => artSoldOverThresholdRoute
+    case IdentifyLinkedTransactionsPage => _ => routes.PercentageTurnoverFromArtController.onPageLoad(NormalMode)
+    case DateSoldOverThresholdPage      => _ => routes.IdentifyLinkedTransactionsController.onPageLoad(NormalMode)
+    case PercentageTurnoverFromArtPage  => _ => routes.CheckYourAnswersController.onPageLoad()
+    case _                              => _ => routes.IndexController.onPageLoad()
+  }
+
+  private def artSoldOverThresholdRoute(answers: UserAnswers): Call = answers.get(ArtSoldOverThresholdPage) match {
+    case Some(true)  => routes.DateSoldOverThresholdController.onPageLoad(NormalMode)
+    case Some(false) => routes.IdentifyLinkedTransactionsController.onPageLoad(NormalMode)
+    case None        => routes.SessionExpiredController.onPageLoad()
   }
 
   private val checkRouteMap: Page => UserAnswers => Call = {
-    case _ => _ => routes.CheckYourAnswersController.onPageLoad()
+    case ArtSoldOverThresholdPage => artSoldOverThresholdCheckRoute
+    case _                        => _ => routes.CheckYourAnswersController.onPageLoad()
   }
+
+  private def artSoldOverThresholdCheckRoute(answers: UserAnswers): Call =
+    (answers.get(ArtSoldOverThresholdPage), answers.get(DateSoldOverThresholdPage)) match {
+      case (Some(true), None) => routes.DateSoldOverThresholdController.onPageLoad(CheckMode)
+      case _                  => routes.CheckYourAnswersController.onPageLoad()
+    }
 
   def nextPage(page: Page, mode: Mode, userAnswers: UserAnswers): Call = mode match {
     case NormalMode =>
